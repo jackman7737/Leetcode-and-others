@@ -9,32 +9,23 @@
  * }
  */
 class Solution {
+    private boolean isPalindromeHelper(ListNode right){
+        if(right==null){
+            return true;
+        }
+        boolean res=isPalindromeHelper(right.next);
+        if(res==false){
+            return false;
+        }else if(left.val!=right.val){
+            return false;
+        }else{
+            left=left.next;
+            return true;
+        }
+    }
+    ListNode left=null;
     public boolean isPalindrome(ListNode head) {
-    ListNode fast = head;
-    ListNode slow = head;
-
-    while(fast != null && fast.next != null) {
-        fast = fast.next.next;
-        slow = slow.next;
+        left=head;
+        return isPalindromeHelper(head);
     }
-    if(fast != null) slow = slow.next;
-    
-    slow = reverse(slow);
-    while(slow != null && head.val == slow.val) {
-        head = head.next;
-        slow = slow.next;
-    }
-    return slow == null;
-}
-
-private ListNode reverse(ListNode head) {
-    ListNode prev = null;
-    while(head != null) {
-        ListNode next = head.next;
-        head.next = prev;
-        prev = head;
-        head = next;
-    }
-    return prev;
-}
 }
