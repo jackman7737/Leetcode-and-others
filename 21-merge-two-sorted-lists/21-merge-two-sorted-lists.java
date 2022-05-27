@@ -8,21 +8,28 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-class Solution {
-   public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-   if(list1 == null){
-       return list2;
-   }
-    if(list2==null){
-        return list1;
+
+  public class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode(0);
+        ListNode handler = head;
+        while(l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                handler.next = l1;
+                l1 = l1.next;
+            } else {
+                handler.next = l2;
+                l2 = l2.next;
+            }
+            handler = handler.next;
+        }
+        
+        if (l1 != null) {
+            handler.next = l1;
+        } else if (l2 != null) {
+            handler.next = l2;
+        }
+        
+        return head.next;
     }
-    if(list1.val<list2.val){
-        list1.next = mergeTwoLists(list1.next , list2);
-        return list1;
-    }
-    else{
-        list2.next = mergeTwoLists(list2.next , list1);
-    }
-     return list2;
-  }
 }
