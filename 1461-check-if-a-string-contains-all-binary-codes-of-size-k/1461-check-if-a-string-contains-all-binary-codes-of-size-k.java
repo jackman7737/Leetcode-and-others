@@ -1,14 +1,9 @@
 class Solution {
     public boolean hasAllCodes(String s, int k) {
-        Set<String> st = new HashSet<>();
-        int l = 0, r = k-1;
-        while(r<s.length()){
-            String ss  = s.substring(l,r+1);
-            st.add(ss);
-            l++;r++;
+        Set<String> seen = new HashSet<>();
+        for (int i = k; i <= s.length() && seen.size() < 1 << k; ++i) {
+            seen.add(s.substring(i - k, i));
         }
-        for(var v  :st)
-            System.out.println(v);
-        return (st.size() == Math.pow(2,k));
+        return seen.size() == 1 << k;
     }
 }
